@@ -1,0 +1,13 @@
+__pycache__/
+node_modules/
+package.json
+package-lock.json
+tsconfig.json
+tsconfig.node.json
+tsconfig.app.json
+vite.config.ts
+eslint.config.js
+tfidf_matrix.npz
+tfidf_vocab.json
+uvicorn
+cosine_sim.npy
