@@ -13,7 +13,7 @@ function Show_books({elements}) {
     async function getRecs (isbn) {
         setShowRec(true);
         try{
-            const res = await fetch('http://localhost:5000/get_recs', {
+            const res = await fetch('http://127.0.0.1:8000/get_recs', {
                 method: 'POST',
                 headers:{
                     "Content-Type": "application/json",

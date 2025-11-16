@@ -1,3 +1,4 @@
+import os
 import json
 
 import numpy as np
@@ -19,7 +20,11 @@ app.add_middleware(
 )
 
 full_path = 'C:\\Users\\devas\\.cache\\kagglehub\\datasets\\arashnic\\book-recommendation-dataset\\versions\\3'
-books_df = pd.read_csv(f"{full_path}/Books.csv")[:100]
+books_df = pd.read_csv(
+    os.path.join(full_path, "Books.csv"),
+    delimiter=',',
+    low_memory=False,
+)#[:100]
 
 min_r = 8
 max_rec = 10
@@ -52,3 +57,5 @@ def get_recs(req: ISBNRequest):
 @app.get('/get_books')
 def get_books():
     return books_df.head(20).to_dict(orient='records')
+
+# uvicorn server:app --reload
