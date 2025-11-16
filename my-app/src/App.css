@@ -1,0 +1,8 @@
+.book_box{
+    transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.book_box:hover{
+    transform: scale(1.0075);
+    background-color:rgba(255, 235, 205, 0.5);
+}

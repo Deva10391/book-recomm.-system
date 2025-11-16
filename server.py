@@ -29,7 +29,7 @@ books_df = pd.read_csv(
 min_r = 8
 max_rec = 10
 ISBN_list = books_df['ISBN'].unique()
-book_list = books_df[books_df['ISBN'].isin(ISBN_list)].copy()[['ISBN', 'Book-Title', 'Year-Of-Publication']]
+book_list = books_df[books_df['ISBN'].isin(ISBN_list)].copy()[['ISBN', 'Book-Author', 'Book-Title', 'Publisher', 'Year-Of-Publication']]
 book_list = book_list[:int(book_list.shape[0]*0.4)].copy()
 
 cosine_sim = np.load('cosine_sim.npy')
@@ -45,6 +45,10 @@ def rec_func(isbn_user, cosine_sim=cosine_sim, max_rec=max_rec):
 
 class ISBNRequest(BaseModel):
     isbn: str
+    
+@app.get('/get_books')
+def get_books():
+    return books_df.head(20).to_dict(orient='records')
 
 @app.post('/get_recs')
 def get_recs(req: ISBNRequest):
@@ -53,9 +57,5 @@ def get_recs(req: ISBNRequest):
         return recs.to_dict(orient='records')
     except KeyError:
         raise HTTPException(status_code=404, detail="ISBN not found")
-    
-@app.get('/get_books')
-def get_books():
-    return books_df.head(20).to_dict(orient='records')
 
 # uvicorn server:app --reload
