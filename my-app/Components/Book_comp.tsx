@@ -1,6 +1,5 @@
 function Book_comp({book, onClick}) {
 
-    console.log(book);
     return (
         <>
             <div
